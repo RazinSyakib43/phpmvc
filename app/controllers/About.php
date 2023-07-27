@@ -5,7 +5,10 @@
 class About extends Controller{
     // Membuat method default dengan parameter nama dan pekerjaan
     public function index($nama = 'Razin', $pekerjaan = 'Mahasiswa', $umur = 21){
-        $this->view('about/index');
+        $data['nama'] = $nama;
+        $data['pekerjaan'] = $pekerjaan;
+        $data['umur'] = $umur;
+        $this->view('about/index', $data);
     }
 
     // Membuat method page
