@@ -5,5 +5,8 @@
 require_once 'core/App.php';
 //memanggil file controller.php
 require_once 'core/Controller.php';
-// memanggil file Constants.php
-require_once 'core/Constants.php';
+// memanggil file database.php
+require_once 'core/Database.php';
+
+// memanggil file config.php
+require_once 'config/config.php';
