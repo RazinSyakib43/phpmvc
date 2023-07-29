@@ -17,4 +17,14 @@ class Mahasiswa_model{
         // mengeksekusi query database
         return $this->db->resultSet();
     }
+
+    // method untuk mengambil data mahasiswa berdasarkan id
+    public function getMahasiswaById($id){
+        // mengatur query database
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
+        // mengikat data untuk mencegah sql injection
+        $this->db->bind('id', $id);
+        // mengeksekusi query database, pakai single karena hanya mengambil satu data
+        return $this->db->single();
+    }
 }
