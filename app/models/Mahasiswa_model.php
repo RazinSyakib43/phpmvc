@@ -1,29 +1,30 @@
 <?php
 class Mahasiswa_model{
-    // Sebuah array yang berisi array asosiatif dengan key nama, nim, email, dan jurusan
-    private $mhs = [
-        [
-            "nama" => "Muhammad Razin Syakib",
-            "nim" => "20500043",
-            "email" => "muhammadrazin14@gmail.com",
-            "jurusan" => "Teknik Informatika"
-        ],
-        [
-            "nama" => "Kanda Sorata",
-            "nim" => "12500043",
-            "email" => "soratakanda@gmail.com",
-            "jurusan" => "Game Development"
-        ],
-        [
-            "nama" => "Ryuunosuke Akasaka",
-            "nim" => "12500050",
-            "email" => "ryu@gmail.com",
-            "jurusan" => "Cyber Security"
-        ],
-    ];
+    private $dbh; // database handler
+    private $stmt; // statement
+
+    // koneksi ke database
+    public function __construct(){
+        // data source name, untuk mengidentifikasi alamat server database
+        $dsn = 'mysql:host=localhost;dbname=phpmvc';
+
+        // coba koneksi ke database dengan blok try catch
+        try{
+            // berfungsi untuk menghubungkan ke database dengan PDO (PHP Data Object), berisi parameter dsn, username, dan password
+            $this->dbh = new PDO($dsn, 'root', '');
+        } catch(PDOException $e){
+            // jika koneksi gagal, maka akan ditampilkan pesan errornya
+            die($e->getMessage());
+        }
+    }
 
     // method untuk mengambil data mahasiswa
     public function getAllMahasiswa(){
-        return $this->mhs;
+        // query untuk mengambil semua data mahasiswa
+        $this->stmt = $this->dbh->prepare('SELECT * FROM mahasiswa');
+        // eksekusi query
+        $this->stmt->execute();
+        // fetchAll untuk mengambil semua data, dan diatur agar mengembalikan data dalam bentuk array assosiatif
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
